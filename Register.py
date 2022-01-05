@@ -19,7 +19,7 @@ while True:
 				pas=autopass()
 		elif i.upper()=="I":
 			pas=input("Sisestage oma parool -> ")
-			kont=passkontroll(paspassword)
+			kont=passkontroll(password)
 			if kont==True:
 				users.append(login)
 				password.append(pas)
