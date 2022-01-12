@@ -15,22 +15,46 @@ def autopass()->str:
 	print("See on sinu password -> ",psword)
 	return psword
 
-def passkontroll(password:str):
+#def passkontroll(password:str):
+#	"""parooli kinnitamine
+#	:param srt password:parool, mille kasutaja sisestas
+#	:rtype:str
+#	"""
+#	ls=list(psword)
+#	for e in ls:
+#		if e.isdigit(): a=True
+#		if e.isalpha(): b=True
+#		if e.isupper(): c=True
+#		if e.islower(): d=True
+#	if a==True and b==True and c==True and d==True:
+#		k=True
+#	else:
+#		k=False
+#	return k
+
+def control(password:str):
 	"""parooli kinnitamine
 	:param srt password:parool, mille kasutaja sisestas
 	:rtype:str
 	"""
-	ls=list(psword)
-	for e in ls:
-		if e.isdigit(): a=True
-		if e.isalpha(): b=True
-		if e.isupper(): c=True
-		if e.islower(): d=True
-	if a==True and b==True and c==True and d==True:
-		k=True
+	str0 = ".,:;!_*-+()/#¤%&"
+	alpha=digit=upper=special=0
+	ls = list(str0)
+	psword = list(password)
+	for i in range(len(psword)):
+		if psword[i].isupper():
+			upper=1
+		if psword[i].isalpha():
+			alpha=1
+		if psword[i].isdigit():
+			digit=1
+		if psword[i] in ls:
+			special=1
+	if alpha==1 and digit==1 and upper==1 and special==1:
+		passOk=True
 	else:
-		k=False
-	return k
+		passOk=False
+	return passOk
 
 def kõik(user=str,passwords=str):
 	"""näitab kõiki kasutajaid ja kõiki paroole
@@ -43,3 +67,22 @@ def kõik(user=str,passwords=str):
 		print(user,end="_")
 		print(passwords[k])
 		k+=1
+import time, sys
+def update_progress(progress):
+    barLength = 10 # Muutke seda, et muuta edenemisriba pikkust
+    status = ""
+    if isinstance(progress, int):
+        progress = float(progress)
+    if not isinstance(progress, float):
+        progress = 0
+        status = "viga: progressi var peab olema ujuv\r\n"
+    if progress < 0:
+        progress = 0
+        status = "Peata...\r\n"
+    if progress >= 1:
+        progress = 1
+        status = "Valmis...\r\n"
+    block = int(round(barLength*progress))
+    text = "\rProtsenti: [{0}] {1}% {2}".format( "■"*block + "☻"*(barLength-block), progress*100, status)
+    sys.stdout.write(text)
+    sys.stdout.flush()
