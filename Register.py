@@ -2,8 +2,12 @@ from MyModule import*
 from random import *
 import time, sys
 from module1 import *
-users=["Artjom"]
-password=["qwerty"]
+users=[]
+password=[]
+users=failist_lugemine("Users.txt",users)
+print(users)
+password=failist_pass("Pass.txt",password)
+print(password)
 
 while True:
 	print("Registreerimine = 1 \nAutoriseerimine = 2 \nLogin välja = 3")
@@ -14,20 +18,22 @@ while True:
 			login=input("Kasutajanimi -> ")
 			if login not in users:
 				print("Kasutajanimi soobib")
-				users.append(login)
+				users=rida_salvestamine("Users.txt",login)
+				#users.append(login)
 				break
 			else:
 				print("See kasutajanimi juba registreeritud!")
 		i=input("Valige, kas soovite parooli luua arvuti(A) või teie enda poolt(I) => ")
 		if i.upper()=="A":
 				pas=autopass()
-				password.append(pas)
+				password=rida_salvestamine("Pass.txt",pas)
+				#password.append(pas)
 		elif i.upper()=="I":
 			pas=input("Sisestage oma parool -> ")
-			kont=control(password)
+			kont=passOK(password)
 			if kont==True:
-				users.append(login)
-				password.append(pas)
+				password=rida_salvestamine("Pass.txt",pas)
+				#password.append(pas)
 				break
 			else:
 				print("Parool ei soobib")
@@ -47,7 +53,7 @@ while True:
 					print("Head aega!")
 					exit(0)
 				print ("")
-				print ("Edenemine: 0->1")
+				print ("Edenemine: 0->100")
 				for i in range(101):
 				   time.sleep(0.1)
 				   update_progress(i/100.0)

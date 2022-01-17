@@ -32,7 +32,7 @@ def autopass()->str:
 #		k=False
 #	return k
 
-def control(password:str):
+def passOK(password:str):
 	"""parooli kinnitamine
 	:param srt password:parool, mille kasutaja sisestas
 	:rtype:str
@@ -51,7 +51,7 @@ def control(password:str):
 		if psword[i] in ls:
 			special=1
 	if alpha==1 and digit==1 and upper==1 and special==1:
-		passOk=True
+		passOK=True
 	else:
 		passOk=False
 	return passOk
@@ -86,3 +86,32 @@ def update_progress(progress):
     text = "\rProtsenti: [{0}] {1}% {2}".format( "■"*block + "☻"*(barLength-block), progress*100, status)
     sys.stdout.write(text)
     sys.stdout.flush()
+
+def failist_lugemine(f:str,u:list):
+	"""Info failist f listisse l
+	"""
+	fail=open(f,"r")
+	for rida in fail:
+		u.append(rida.strip())
+	fail.close()
+	return u
+
+def failist_pass(a:str,p:list):
+	"""Info failist f listisse l
+	"""
+	fail=open(a,"r")#чтение файла
+	for rida in fail:
+		p.append(rida.strip())
+	fail.close()
+	return p
+
+def failisse_salvestamine(f:str,u:list):
+	fail=open(f,"w")#перезапись файла
+	for el in u:
+		fail.write(el+"\n")
+	fail.close()
+
+def rida_salvestamine(f:str,rida:str):
+	fail=open(f,"a")#режим до записи
+	fail.write(rida+"\n")
+	fail.close()
